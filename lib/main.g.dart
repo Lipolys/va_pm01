@@ -15,14 +15,24 @@ List<RouteEntity> get routes => [
     routeBuilder: b2Builder,
   ),
   RouteEntity(
+    key: 'bike/read/[id]',
+    uri: Uri.parse('bike/read/[id]'),
+    routeBuilder: b3Builder,
+  ),
+  RouteEntity(
+    key: 'bike/update/[id]',
+    uri: Uri.parse('bike/update/[id]'),
+    routeBuilder: b4Builder,
+  ),
+  RouteEntity(
     key: 'contact',
     uri: Uri.parse('contact'),
-    routeBuilder: b6Builder,
+    routeBuilder: b5Builder,
   ),
   RouteEntity(
     key: 'notfound',
     uri: Uri.parse('notfound'),
-    routeBuilder: b7Builder,
+    routeBuilder: b6Builder,
   ),
 ];
 
@@ -30,7 +40,12 @@ const routePaths = (
   path: '/',
   about: '/about',
   lib: (path: '/lib', app: '/lib/app'),
-  bike: (path: '/bike', create: '/bike/create'),
+  bike: (
+    path: '/bike',
+    create: '/bike/create',
+    read: (path: '/bike/read', $id: '/bike/read/[id]'),
+    update: (path: '/bike/update', $id: '/bike/update/[id]'),
+  ),
   contact: '/contact',
   notfound: '/notfound',
 );

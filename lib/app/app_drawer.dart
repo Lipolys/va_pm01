@@ -16,28 +16,29 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.list),
-            title: const Text('Página Inicial'),
+            title: const Text('Home'),
             onTap: () {
-              Routefly.push('/lib/app');
+              Navigator.of(context).pop();
+              Routefly.pushNavigate('/lib/app');
             },
           ),
           ListTile(
             leading: const Icon(Icons.add),
-            title: const Text('Incluir'),
+            title: const Text('Add Bike'),
             onTap: () {
               Routefly.push('/bike/create');
             },
           ),
           ListTile(
             leading: const Icon(Icons.info),
-            title: const Text('Sobre'),
+            title: const Text('About'),
             onTap: () {
               Routefly.push('/about');
             },
           ),
           ListTile(
             leading: const Icon(Icons.contact_mail),
-            title: const Text('Contato'),
+            title: const Text('Contact'),
             onTap: () {
               Routefly.push('/contact');
             },

@@ -49,7 +49,7 @@ class _BikeListPageState extends State<BikeListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Bicicletas'),
+        title: const Text('Bike List'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -72,7 +72,7 @@ class _BikeListPageState extends State<BikeListPage> {
           }
           final bikes = snapshot.data ?? [];
           if (bikes.isEmpty) {
-            return const Center(child: Text('Nenhuma bicicleta cadastrada.'));
+            return const Center(child: Text('No bikes registered.'));
           }
 
           final totalPages = (bikes.length / _pageSize).ceil();
@@ -90,21 +90,62 @@ class _BikeListPageState extends State<BikeListPage> {
                     itemBuilder: (context, index) {
                       final bike = bikesPage[index];
                       return ListTile(
-                        title: Text(bike.partNumber ?? 'Sem modelo'),
+                        onTap: () async {
+                          await Routefly.push('/bike/read/${bike.id}');
+                        },
+                        title: Text(bike.partNumber ?? 'No Model'),
                         subtitle: Text(bike.description ?? ''),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
                               icon: const Icon(Icons.edit),
-                              onPressed: () {
-                                // Implementar navegação para edição
+                              onPressed: () async {
+                                await Routefly.push('/bike/update/${bike.id}');
+                                _refresh();
                               },
                             ),
                             IconButton(
                               icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                // Implementar exclusão
+                              onPressed: () async {
+                                final confirmed = await showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Confirmar exclusão'),
+                                    content: const Text('Tem certeza que deseja excluir esta bicicleta?'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () => Navigator.of(context).pop(false),
+                                        child: const Text('Cancelar'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () => Navigator.of(context).pop(true),
+                                        child: const Text('Excluir', style: TextStyle(color: Colors.red)),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                                if (confirmed == true) {
+                                  // Chame aqui a função de exclusão da bike
+                                  // Exemplo:
+                                  final appApi = Provider.of<AppApi>(context, listen: false);
+                                  final bikeApi = BikeControllerApi(appApi.api);
+                                  try {
+                                    await bikeApi.remove(bike.id!);
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('Bicicleta excluída com sucesso!')),
+                                      );
+                                    }
+                                    _refresh(); // Atualiza a lista
+                                  } catch (e) {
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Erro ao excluir: $e')),
+                                      );
+                                    }
+                                  }
+                                }
                               },
                             ),
                           ],
@@ -123,7 +164,7 @@ class _BikeListPageState extends State<BikeListPage> {
                         ? () => _goToPage(_currentPage - 1, totalPages)
                         : null,
                   ),
-                  Text('Página ${_currentPage + 1} de $totalPages'),
+                  Text('Page ${_currentPage + 1} of $totalPages'),
                   IconButton(
                     icon: const Icon(Icons.chevron_right),
                     onPressed: _currentPage < totalPages - 1

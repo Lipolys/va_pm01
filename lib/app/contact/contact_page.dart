@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../app_drawer.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
@@ -23,7 +22,6 @@ class ContactPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Contact'),
       ),
-      drawer: const AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

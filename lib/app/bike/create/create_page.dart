@@ -102,7 +102,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Bike'),
+        title: const Text('Add Bike'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
