@@ -9,12 +9,15 @@ List<RouteEntity> get routes => [
     uri: Uri.parse('lib/app'),
     routeBuilder: b1Builder,
   ),
-  RouteEntity(key: 'bike', uri: Uri.parse('bike'), routeBuilder: b2Builder),
   RouteEntity(
     key: 'bike/create',
-    parent: 'bike',
     uri: Uri.parse('bike/create'),
-    routeBuilder: b3Builder,
+    routeBuilder: b2Builder,
+  ),
+  RouteEntity(
+    key: 'contact',
+    uri: Uri.parse('contact'),
+    routeBuilder: b6Builder,
   ),
   RouteEntity(
     key: 'notfound',
@@ -28,5 +31,6 @@ const routePaths = (
   about: '/about',
   lib: (path: '/lib', app: '/lib/app'),
   bike: (path: '/bike', create: '/bike/create'),
+  contact: '/contact',
   notfound: '/notfound',
 );

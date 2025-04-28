@@ -34,8 +34,7 @@ class AppApi {
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  var appApi = AppApi(urlValue:"http://10.200.5.183:8080");
-
+  var appApi = AppApi(urlValue:"http://10.0.2.2:8080");
   runApp(
   MultiProvider(
     providers: [

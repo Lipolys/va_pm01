@@ -40,7 +40,8 @@
         android:debuggable="true"
         android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="projeto_modelo_20251" >
+        android:label="projeto_1va" >
+        android:enableOnBackInvokedCallback="true"
         <activity
             android:name="br.ueg.progmobile.projeto_modelo_20251.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

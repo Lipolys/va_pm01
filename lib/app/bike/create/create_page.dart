@@ -46,8 +46,22 @@ class _CreateBikePageState extends State<CreateBikePage> {
       final appApi = Provider.of<AppApi>(context, listen: false);
       final bikeApi = BikeControllerApi(appApi.api);
 
+      // Verifica se o número do modelo já existe
+      final existingBikes = await bikeApi.listAll() ?? [];
+      final modelNumber = _modelNumberController.text;
+      final isDuplicate = existingBikes.any((bike) => bike.partNumber == modelNumber);
+
+      if (isDuplicate) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Já existe uma bicicleta com este número de modelo.')),
+          );
+        }
+        return; // Não prossegue com o cadastro
+      }
+
       final createDto = CreateBikeDTO(
-        partNumber: _modelNumberController.text,
+        partNumber: modelNumber,
         description: _descriptionController.text,
         sizeFrame: _selectedFrameSize,
         sizeWheel: _selectedWheelSize,
@@ -58,11 +72,10 @@ class _CreateBikePageState extends State<CreateBikePage> {
       try {
         final createdBike = await bikeApi.create(createDto);
         if (createdBike != null && context.mounted) {
-          // Navegar de volta para a lista ou mostrar mensagem de sucesso
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Bike criada com sucesso!')),
           );
-          Routefly.pop(context); // Voltar para a tela anterior
+          Routefly.pop(context);
         } else if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Falha ao criar a bike.')),
@@ -101,13 +114,15 @@ class _CreateBikePageState extends State<CreateBikePage> {
               children: [
                 TextFormField(
                   controller: _modelNumberController,
-                  // Removido keyboardType numérico pois partNumber é String na API
                   decoration: const InputDecoration(labelText: 'Model Number (Part Number)'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the model number';
                     }
-                    // Validação adicional se necessário para o formato do partNumber
+                    final numericRegex = RegExp(r'^\d+$');
+                    if (!numericRegex.hasMatch(value)) {
+                      return 'Model number must contain only numbers';
+                    }
                     return null;
                   },
                 ),
@@ -115,9 +130,13 @@ class _CreateBikePageState extends State<CreateBikePage> {
                 TextFormField(
                   controller: _descriptionController,
                   decoration: const InputDecoration(labelText: 'Description'),
+                  maxLength: 500,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the description';
+                    }
+                    if (value.length > 500) {
+                      return 'Description cannot exceed 500 characters';
                     }
                     return null;
                   },
