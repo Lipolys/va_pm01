@@ -173,18 +173,16 @@ class _CreateBikePageState extends State<CreateBikePage> {
                         firstDate: DateTime(1900),
                         lastDate: DateTime.now());
 
-                    if (pickedDate != null) {
-                      String formattedDate = "${pickedDate.year.toString().padLeft(4, '0')}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-                      setState(() {
-                        _manufactureDateController.text = formattedDate;
-                      });
-                    }
-                  },
+                    String formattedDate = "${pickedDate?.year.toString().padLeft(4, '0')}-${pickedDate?.month.toString().padLeft(2, '0')}-${pickedDate?.day.toString().padLeft(2, '0')}";
+                    setState(() {
+                      _manufactureDateController.text = formattedDate;
+                    });
+                                    },
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    const Text('Is Mountain Bike?'),
+                    const Text('É uma Mountain Bike?'),
                     Switch(
                       value: _isMountainBike,
                       onChanged: (value) {
@@ -218,7 +216,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
                   decoration: const InputDecoration(labelText: 'Wheel Size'),
                   validator: (value) {
                     if (value == null) {
-                      return 'Please select a wheel size';
+                      return 'Favor informar o tamanho da roda';
                     }
                     return null;
                   },
@@ -240,7 +238,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
                   decoration: const InputDecoration(labelText: 'Frame Size'),
                   validator: (value) {
                     if (value == null) {
-                      return 'Please select a frame size';
+                      return 'Favor informar o tamanho do quadro';
                     }
                     return null;
                   },

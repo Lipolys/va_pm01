@@ -223,13 +223,11 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                         firstDate: DateTime(1900),
                         lastDate: DateTime.now());
 
-                    if (pickedDate != null) {
-                      String formattedDate = "${pickedDate.year.toString().padLeft(4, '0')}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-                      setState(() {
-                        _manufactureDateController.text = formattedDate;
-                      });
-                    }
-                  },
+                    String formattedDate = "${pickedDate?.year.toString().padLeft(4, '0')}-${pickedDate?.month.toString().padLeft(2, '0')}-${pickedDate?.day.toString().padLeft(2, '0')}";
+                    setState(() {
+                      _manufactureDateController.text = formattedDate;
+                    });
+                                    },
                 ),
                 const SizedBox(height: 16),
                 Row(
