@@ -6,44 +6,44 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('About'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              '"Mobile Programming" Application',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'This application was developed to obtain a grade in the "Mobile Programming" subject. '
-              'The application is a simple crud of bikes, where you can create, edit, delete and list bikes.',
-              style: TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 24),
-            const Text(
-              'Technologies Used:',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            const BulletPoint(text: 'Flutter SDK'),
-            const BulletPoint(text: 'Dart Language'),
-            const BulletPoint(text: 'Signals for State Management'),
-            const BulletPoint(text: 'Developed in Java with Spring Boot on the backend.'),
-            const SizedBox(height: 24),
-          ],
+        appBar: AppBar(
+          title: const Text('Sobre'),
         ),
-      )
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Aplicativo "Programação Mobile"',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Este aplicativo foi desenvolvido para obtenção de nota na disciplina "Programação Mobile". '
+                    'O aplicativo é um CRUD simples de bicicletas, onde é possível criar, editar, excluir e listar bicicletas.',
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Tecnologias Utilizadas:',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const BulletPoint(text: 'Flutter SDK'),
+              const BulletPoint(text: 'Linguagem Dart'),
+              const BulletPoint(text: 'Signals para Gerenciamento de Estado'),
+              const BulletPoint(text: 'Desenvolvido em Java com Spring Boot no backend.'),
+              const SizedBox(height: 24),
+            ],
+          ),
+        )
     );
   }
 }

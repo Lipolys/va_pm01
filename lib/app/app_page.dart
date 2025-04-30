@@ -49,7 +49,7 @@ class _BikeListPageState extends State<BikeListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bike List'),
+        title: const Text('Lista de Bicicletas'),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -72,7 +72,7 @@ class _BikeListPageState extends State<BikeListPage> {
           }
           final bikes = snapshot.data ?? [];
           if (bikes.isEmpty) {
-            return const Center(child: Text('No bikes registered.'));
+            return const Center(child: Text('Sem registro de bicicletas.'));
           }
 
           final totalPages = (bikes.length / _pageSize).ceil();
@@ -93,7 +93,7 @@ class _BikeListPageState extends State<BikeListPage> {
                         onTap: () async {
                           await Routefly.push('/bike/read/${bike.id}');
                         },
-                        title: Text(bike.partNumber ?? 'No Model'),
+                        title: Text(bike.partNumber ?? 'Sem modelo'),
                         subtitle: Text(bike.description ?? ''),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,

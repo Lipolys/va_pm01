@@ -47,10 +47,9 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
     final idParam = Routefly.query['id'];
     final int? id = idParam is int ? idParam : int.tryParse(idParam?.toString() ?? '');
     if (id == null) {
-      // Trate erro de id inválido
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid bike id.')),
+          const SnackBar(content: Text('ID da bicicleta inválido.')),
         );
         Routefly.pop(context);
       }
@@ -60,7 +59,7 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
     if (bike == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Bike not found.')),
+          const SnackBar(content: Text('Bicicleta não encontrada.')),
         );
         Routefly.pop(context);
       }
@@ -93,7 +92,6 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
       final appApi = Provider.of<AppApi>(context, listen: false);
       final bikeApi = BikeControllerApi(appApi.api);
 
-      // Verifica duplicidade de número de modelo (exceto a própria bike)
       final existingBikes = await bikeApi.listAll() ?? [];
       final modelNumber = _modelNumberController.text;
       final isDuplicate = existingBikes.any((bike) =>
@@ -102,7 +100,7 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
       if (isDuplicate) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Model number already exists.')),
+            const SnackBar(content: Text('Já existe uma bicicleta com este número de modelo.')),
           );
         }
         return;
@@ -121,24 +119,24 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
         final updatedBike = await bikeApi.update(_bike!.id!, updateDto);
         if (updatedBike != null && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Bike updated successfully!')),
+            const SnackBar(content: Text('Bicicleta atualizada com sucesso!')),
           );
           Routefly.pop(context);
         } else if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Failed to update the bike.')),
+            const SnackBar(content: Text('Falha ao atualizar a bicicleta.')),
           );
         }
       } on ApiException catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('API error: ${e.message}')),
+            SnackBar(content: Text('Erro na API: ${e.message}')),
           );
         }
       } catch (e) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Unexpected error: $e')),
+            SnackBar(content: Text('Erro inesperado: $e')),
           );
         }
       }
@@ -154,7 +152,7 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Update Bike'),
+        title: const Text('Atualizar Bicicleta'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -166,14 +164,14 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
               children: [
                 TextFormField(
                   controller: _modelNumberController,
-                  decoration: const InputDecoration(labelText: 'Model Number (Part Number)'),
+                  decoration: const InputDecoration(labelText: 'Número do Modelo (Número da Peça)'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the model number';
+                      return 'Por favor, insira o número do modelo.';
                     }
                     final numericRegex = RegExp(r'^\d+$');
                     if (!numericRegex.hasMatch(value)) {
-                      return 'Model number must contain only numbers';
+                      return 'O número do modelo deve conter apenas números.';
                     }
                     return null;
                   },
@@ -181,14 +179,14 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: const InputDecoration(labelText: 'Descrição'),
                   maxLength: 500,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the description';
+                      return 'Por favor, insira a descrição.';
                     }
                     if (value.length > 500) {
-                      return 'Description cannot exceed 500 characters';
+                      return 'A descrição não pode exceder 500 caracteres.';
                     }
                     return null;
                   },
@@ -197,21 +195,21 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                 TextFormField(
                   controller: _manufactureDateController,
                   decoration: const InputDecoration(
-                    labelText: 'Manufacture Date (YYYY-MM-DD)',
+                    labelText: 'Data de Fabricação (AAAA-MM-DD)',
                     hintText: 'Ex: 2023-10-27',
                   ),
                   keyboardType: TextInputType.datetime,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the manufacture date';
+                      return 'Por favor, insira a data de fabricação.';
                     }
                     final dateRegex = RegExp(r'^\d{4}-\d{2}-\d{2}$');
                     if (!dateRegex.hasMatch(value)) {
-                      return 'Invalid format. Use YYYY-MM-DD';
+                      return 'Formato inválido. Use AAAA-MM-DD.';
                     }
                     final date = DateTime.tryParse(value);
                     if (date == null) {
-                      return 'Invalid date';
+                      return 'Data inválida.';
                     }
                     return null;
                   },
@@ -227,12 +225,12 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                     setState(() {
                       _manufactureDateController.text = formattedDate;
                     });
-                                    },
+                  },
                 ),
                 const SizedBox(height: 16),
                 Row(
                   children: [
-                    const Text('Is Mountain Bike?'),
+                    const Text('É uma Mountain Bike?'),
                     Switch(
                       value: _isMountainBike,
                       onChanged: (value) {
@@ -261,10 +259,10 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                       _selectedWheelSize = value;
                     });
                   },
-                  decoration: const InputDecoration(labelText: 'Wheel Size'),
+                  decoration: const InputDecoration(labelText: 'Tamanho da Roda'),
                   validator: (value) {
                     if (value == null) {
-                      return 'Please select a wheel size';
+                      return 'Por favor, selecione o tamanho da roda.';
                     }
                     return null;
                   },
@@ -283,10 +281,10 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                       _selectedFrameSize = value;
                     });
                   },
-                  decoration: const InputDecoration(labelText: 'Frame Size'),
+                  decoration: const InputDecoration(labelText: 'Tamanho do Quadro'),
                   validator: (value) {
                     if (value == null) {
-                      return 'Please select a frame size';
+                      return 'Por favor, selecione o tamanho do quadro.';
                     }
                     return null;
                   },
@@ -300,12 +298,12 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                         Routefly.pop(context);
                       },
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      child: const Text('Cancel'),
+                      child: const Text('Cancelar'),
                     ),
                     ElevatedButton(
                       onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                      child: const Text('Save'),
+                      child: const Text('Salvar'),
                     ),
                   ],
                 ),

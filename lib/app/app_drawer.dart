@@ -16,7 +16,7 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.list),
-            title: const Text('Home'),
+            title: const Text('Listagem'),
             onTap: () {
               Navigator.of(context).pop();
               Routefly.pushNavigate('/lib/app');
@@ -24,21 +24,21 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.add),
-            title: const Text('Add Bike'),
+            title: const Text('Incluir Bicicleta'),
             onTap: () {
               Routefly.push('/bike/create');
             },
           ),
           ListTile(
             leading: const Icon(Icons.info),
-            title: const Text('About'),
+            title: const Text('Sobre'),
             onTap: () {
               Routefly.push('/about');
             },
           ),
           ListTile(
             leading: const Icon(Icons.contact_mail),
-            title: const Text('Contact'),
+            title: const Text('Contato'),
             onTap: () {
               Routefly.push('/contact');
             },

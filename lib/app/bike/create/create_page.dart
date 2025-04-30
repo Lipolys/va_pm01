@@ -102,7 +102,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Bike'),
+        title: const Text('Incluir Bicicleta'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -114,14 +114,14 @@ class _CreateBikePageState extends State<CreateBikePage> {
               children: [
                 TextFormField(
                   controller: _modelNumberController,
-                  decoration: const InputDecoration(labelText: 'Model Number (Part Number)'),
+                  decoration: const InputDecoration(labelText: 'Número do Modelo'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the model number';
+                      return 'Por favor informar o número do modelo';
                     }
                     final numericRegex = RegExp(r'^\d+$');
                     if (!numericRegex.hasMatch(value)) {
-                      return 'Model number must contain only numbers';
+                      return 'O número do modelo deve conter apenas números';
                     }
                     return null;
                   },
@@ -129,14 +129,14 @@ class _CreateBikePageState extends State<CreateBikePage> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _descriptionController,
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration: const InputDecoration(labelText: 'Descrição'),
                   maxLength: 500,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the description';
+                      return 'Por favor informar a descrição';
                     }
                     if (value.length > 500) {
-                      return 'Description cannot exceed 500 characters';
+                      return 'A descrição não pode ter mais de 500 caracteres';
                     }
                     return null;
                   },
@@ -145,22 +145,22 @@ class _CreateBikePageState extends State<CreateBikePage> {
                 TextFormField(
                   controller: _manufactureDateController,
                   decoration: const InputDecoration(
-                    labelText: 'Manufacture Date (YYYY-MM-DD)',
+                    labelText: 'Data de Fabricação',
                     hintText: 'Ex: 2023-10-27',
                   ),
                   keyboardType: TextInputType.datetime,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter the manufacture date';
+                      return 'Por favor informar a data de fabricação';
                     }
                     // Regex simples para validar o formato YYYY-MM-DD
                     final dateRegex = RegExp(r'^\d{4}-\d{2}-\d{2}$');
                     if (!dateRegex.hasMatch(value)) {
-                      return 'Invalid format. Use YYYY-MM-DD';
+                      return 'Formato inválido. Use YYYY-MM-DD';
                     }
                     final date = DateTime.tryParse(value);
                     if (date == null) {
-                      return 'Invalid date';
+                      return 'Data inválida';
                     }
                     return null;
                   },
@@ -252,12 +252,12 @@ class _CreateBikePageState extends State<CreateBikePage> {
                         Routefly.pop(context); // Usar Routefly para voltar
                       },
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                      child: const Text('Cancel'),
+                      child: const Text('Cancelar'),
                     ),
                     ElevatedButton(
                       onPressed: _submitForm, // Chamar a função de submit
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                      child: const Text('Create'),
+                      child: const Text('Incluir'),
                     ),
                   ],
                 ),

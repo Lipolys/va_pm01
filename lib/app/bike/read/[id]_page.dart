@@ -30,7 +30,7 @@ class _BikeDetailPageState extends State<BikeDetailPage> {
     if (id == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid ID.')),
+          const SnackBar(content: Text('ID inválido.')),
         );
         Routefly.pop(context);
       }
@@ -40,7 +40,7 @@ class _BikeDetailPageState extends State<BikeDetailPage> {
     if (bike == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Bike not found.')),
+          const SnackBar(content: Text('Bicicleta não encontrada.')),
         );
         Routefly.pop(context);
       }
@@ -60,25 +60,25 @@ class _BikeDetailPageState extends State<BikeDetailPage> {
       );
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Bike Details')),
+      appBar: AppBar(title: const Text('Detalhes da Bicicleta')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: _bike == null
-            ? const Text('Bike not found.')
+            ? const Text('Bicicleta não encontrada.')
             : Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Model Number: ${_bike!.partNumber}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text('Número do Modelo: ${_bike!.partNumber}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text('Description: ${_bike!.description ?? ""}'),
+            Text('Descrição: ${_bike!.description ?? ""}'),
             const SizedBox(height: 8),
-            Text('Frame Size: ${_bike!.sizeFrame ?? ""}'),
+            Text('Tamanho do Quadro: ${_bike!.sizeFrame ?? ""}'),
             const SizedBox(height: 8),
-            Text('Wheel Size: ${_bike!.sizeWheel ?? ""}'),
+            Text('Tamanho da Roda: ${_bike!.sizeWheel ?? ""}'),
             const SizedBox(height: 8),
-            Text('Mountain Bike: ${_bike!.isMTB == true ? "Yes" : "No"}'),
+            Text('Mountain Bike: ${_bike!.isMTB == true ? "Sim" : "Não"}'),
             const SizedBox(height: 8),
-            Text('Manufacture Date: ${_bike!.manufacturedDate?.toIso8601String().split("T").first ?? ""}'),
+            Text('Data de Fabricação: ${_bike!.manufacturedDate?.toIso8601String().split("T").first ?? ""}'),
           ],
         ),
       ),
