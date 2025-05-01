@@ -213,7 +213,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
                       _selectedWheelSize = value;
                     });
                   },
-                  decoration: const InputDecoration(labelText: 'Wheel Size'),
+                  decoration: const InputDecoration(labelText: 'Tamanho do aro'),
                   validator: (value) {
                     if (value == null) {
                       return 'Favor informar o tamanho da roda';
@@ -235,7 +235,7 @@ class _CreateBikePageState extends State<CreateBikePage> {
                       _selectedFrameSize = value;
                     });
                   },
-                  decoration: const InputDecoration(labelText: 'Frame Size'),
+                  decoration: const InputDecoration(labelText: 'Tamanho do quadro'),
                   validator: (value) {
                     if (value == null) {
                       return 'Favor informar o tamanho do quadro';
@@ -251,12 +251,18 @@ class _CreateBikePageState extends State<CreateBikePage> {
                       onPressed: () {
                         Routefly.pop(context); // Usar Routefly para voltar
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey, // Cor alterada para cinza
+                        foregroundColor: Colors.white, // Texto branco para contraste
+                      ),
                       child: const Text('Cancelar'),
                     ),
                     ElevatedButton(
                       onPressed: _submitForm, // Chamar a função de submit
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Cor alterada para azul
+                        foregroundColor: Colors.white, // Texto branco para contraste
+                      ),
                       child: const Text('Incluir'),
                     ),
                   ],

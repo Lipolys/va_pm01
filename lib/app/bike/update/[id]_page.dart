@@ -297,12 +297,18 @@ class _UpdateBikePageState extends State<UpdateBikePage> {
                       onPressed: () {
                         Routefly.pop(context);
                       },
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey, // Cor alterada para cinza
+                        foregroundColor: Colors.white, // Texto branco para contraste
+                      ),
                       child: const Text('Cancelar'),
                     ),
                     ElevatedButton(
                       onPressed: _submitForm,
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue, // Cor alterada para azul
+                        foregroundColor: Colors.white, // Texto branco para contraste
+                      ),
                       child: const Text('Salvar'),
                     ),
                   ],

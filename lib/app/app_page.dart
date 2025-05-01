@@ -164,7 +164,7 @@ class _BikeListPageState extends State<BikeListPage> {
                         ? () => _goToPage(_currentPage - 1, totalPages)
                         : null,
                   ),
-                  Text('Page ${_currentPage + 1} of $totalPages'),
+                  Text('Página ${_currentPage + 1} de $totalPages'),
                   IconButton(
                     icon: const Icon(Icons.chevron_right),
                     onPressed: _currentPage < totalPages - 1
